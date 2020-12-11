@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>データページ</h1>
+<a href="/">トップに戻る</a>
+<ul>
+    {{ range . }}
+    <li>
+        <h4>{{ .Label}}</h4>
+        {{ range .Data}}
+            <p style="display: inline;">{{ . }}度</p>
+        {{ end }}
+    </li>
+    {{ end }}
+</ul>
+
+
+</body>
+</html>
