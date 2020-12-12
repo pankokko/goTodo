@@ -13,9 +13,12 @@ type Person struct {
 }
 
 type ConfigList struct {
-	DbName string
-	Driver string
 	DbUser string
+	Driver string
+}
+
+type DB struct {
+	stmt *sql.DB
 }
 
 var Config ConfigList
@@ -26,6 +29,17 @@ func init() {
 		Driver: cfg.Section("db").Key("driver").MustString("example.sql"),
 		DbUser: cfg.Section("db").Key("user").MustString("root@/gosample"),
 	}
+}
+
+func Connect() *sql.DB {
+
+	db, err := sql.Open(Config.Driver,Config.DbUser)
+
+	if err != nil {
+		panic(err.Error())
+	}
+	return db
+
 }
 
 //
@@ -75,8 +89,6 @@ func Save(name string) (sql.Result, error) {
 		fmt.Println(err)
 	}
 
-	fmt.Printf( "%v",)
-
 	defer db.Close()
 	return result , nil
 }
@@ -92,8 +104,5 @@ func Select(id int64)  {
 	err != nil {
 		fmt.Printf(err.Error())
 	}
-
-
-	fmt.Println(p)
-
+	defer db.Close()
 }
