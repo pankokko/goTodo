@@ -52,9 +52,8 @@ func ShowHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func DetailHandler(w http.ResponseWriter, r *http.Request) {
-
-	value := r.URL.Query()
-	i, err := strconv.Atoi(value["id"][0])
+	query :=r.URL.Query().Get("id")
+	i, err := strconv.Atoi(query)
 	fmt.Printf("%T\n", i) // int
 	if err != nil {
 		panic(err.Error())
